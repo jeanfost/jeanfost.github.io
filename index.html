@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Borgfost — Prédictions futuristes assistées par IA. Mix unique entre data et visuels Manga pour imaginer notre futur. Podcasts en FR, EN, ES.">
+<title>Chroniques du Futur — Jean Fost</title>
+
+<!-- Open Graph -->
+<meta property="og:title" content="Borgfost — Chroniques du Futur">
+<meta property="og:description" content="Prédictions futuristes générées par IA. Un mix unique entre data et visuels Manga pour explorer ce qui vient. Podcasts trilingues FR, EN, ES sur YouTube & Spotify.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://borgfost.github.io">
+<meta property="og:site_name" content="Borgfost">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="en_GB">
+<meta property="og:locale:alternate" content="es_ES">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Borgfost — Chroniques du Futur">
+<meta name="twitter:description" content="Prédictions futuristes générées par IA. Podcasts trilingues FR, EN, ES. Data + visuels Manga pour imaginer notre futur.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #060810; --bg2: #0b0f1a; --bg3: #111827;
+    --accent: #00e5ff; --accent2: #7c3aed;
+    --text: #e2e8f0; --muted: #64748b; --border: rgba(0,229,255,0.12);
+    --font-display: 'Orbitron', monospace; --font-body: 'DM Sans', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px; pointer-events: none; z-index: 0;
+  }
+  .orb { position: fixed; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0; opacity: 0.18; }
+  .orb1 { width: 500px; height: 500px; background: var(--accent2); top: -100px; right: -100px; }
+  .orb2 { width: 400px; height: 400px; background: var(--accent); bottom: 10%; left: -150px; }
+
+  /* LANG SWITCHER */
+  .lang-switcher {
+    position: fixed; top: 1rem; right: 1.5rem; z-index: 200;
+    display: flex; gap: 4px; align-items: center;
+    background: rgba(255,255,255,0.22);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 100px;
+    padding: 7px 16px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.4);
+  }
+  .lang-btn {
+    font-size: 1.35rem; cursor: pointer; opacity: 0.45;
+    transition: opacity 0.2s, transform 0.2s;
+    background: none; border: none; padding: 2px 5px; border-radius: 4px; line-height: 1;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+  }
+  .lang-btn.active { opacity: 1; transform: scale(1.25); }
+  .lang-btn:hover:not(.active) { opacity: 0.8; }
+
+  section { position: relative; z-index: 1; }
+
+  .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 6rem 2rem 4rem; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); border: 1px solid rgba(0,229,255,0.3); padding: 6px 16px; border-radius: 100px; margin-bottom: 2rem; animation: fadeUp 0.8s ease both; }
+  .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)} }
+  .hero h1 { font-family: var(--font-display); font-size: clamp(2.5rem,8vw,6rem); font-weight: 900; line-height: 1; letter-spacing: -0.02em; margin-bottom: 1rem; animation: fadeUp 0.8s ease 0.1s both; }
+  .hero h1 span { display: block; background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-sub { font-size: clamp(1rem,2vw,1.25rem); color: var(--muted); max-width: 600px; margin-bottom: 3rem; animation: fadeUp 0.8s ease 0.2s both; }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; animation: fadeUp 0.8s ease 0.3s both; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; background: var(--accent); color: var(--bg); font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 4px; transition: all 0.2s; border: none; cursor: pointer; }
+  .btn-primary:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,229,255,0.3); }
+  .btn-ghost { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; border: 1px solid var(--border); color: var(--text); font-family: var(--font-display); font-size: 0.75rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 4px; transition: all 0.2s; }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--muted); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; animation: fadeUp 1s ease 1s both; }
+  .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--accent), transparent); animation: scrollLine 2s ease-in-out infinite; }
+  @keyframes scrollLine { 0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom} }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+  .section-header { text-align: center; margin-bottom: 4rem; }
+  .section-tag { display: inline-block; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  .section-header h2 { font-family: var(--font-display); font-size: clamp(1.5rem,4vw,2.5rem); font-weight: 700; letter-spacing: -0.02em; }
+  .section-header p { color: var(--muted); max-width: 560px; margin: 1rem auto 0; font-size: 0.95rem; }
+
+  .concept { padding: 8rem 0; }
+  .concept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+  .concept-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 2rem; position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
+  .concept-card:hover { border-color: rgba(0,229,255,0.35); transform: translateY(-4px); }
+  .concept-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0; transition: opacity 0.3s; }
+  .concept-card:hover::before { opacity: 1; }
+  .card-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+  .card-title { font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.05em; color: var(--accent); margin-bottom: 0.75rem; text-transform: uppercase; }
+  .card-text { font-size: 0.9rem; color: var(--muted); line-height: 1.8; }
+
+  .workflow { padding: 8rem 0; background: var(--bg2); }
+  .workflow-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); position: relative; }
+  .workflow-steps::before { content: ''; position: absolute; top: 2.5rem; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, var(--border), var(--accent), var(--border), transparent); }
+  .step { padding: 0 1.5rem 2rem; text-align: center; }
+  .step-num { width: 48px; height: 48px; border: 1px solid var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 0.8rem; font-weight: 700; color: var(--accent); margin: 0 auto 1.5rem; background: var(--bg); position: relative; z-index: 1; }
+  .step-tool { display: inline-block; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.3); padding: 3px 10px; border-radius: 100px; margin-bottom: 0.75rem; }
+  .step h3 { font-family: var(--font-display); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+  .step p { font-size: 0.85rem; color: var(--muted); }
+
+  .playlists { padding: 8rem 0; }
+  .lang-tabs { display: flex; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap; }
+  .lang-tab { padding: 8px 24px; border: 1px solid var(--border); border-radius: 4px; font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; cursor: pointer; transition: all 0.2s; background: transparent; color: var(--muted); }
+  .lang-tab.active { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+  .lang-tab:hover:not(.active) { border-color: var(--accent); color: var(--accent); }
+  .playlist-content { display: none; }
+  .playlist-content.active { display: block; }
+  .playlist-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 2rem; display: flex; align-items: flex-start; gap: 2rem; transition: border-color 0.3s; }
+  .playlist-card:hover { border-color: rgba(0,229,255,0.35); }
+  .playlist-flag { font-size: 3rem; flex-shrink: 0; }
+  .playlist-info { flex: 1; }
+  .playlist-info h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .playlist-info p { font-size: 0.9rem; color: var(--muted); margin-bottom: 1.5rem; }
+  .playlist-meta { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .meta-item { font-size: 0.78rem; color: var(--muted); }
+  .meta-item strong { color: var(--accent); font-family: var(--font-display); font-size: 0.9rem; }
+
+  .transparency { padding: 8rem 0; background: var(--bg2); }
+  .transp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+  .transp-item { display: flex; gap: 1rem; padding: 1.5rem; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; }
+  .transp-icon { width: 40px; height: 40px; border-radius: 8px; background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+  .transp-item h4 { font-size: 0.85rem; font-weight: 500; margin-bottom: 0.4rem; }
+  .transp-item p { font-size: 0.82rem; color: var(--muted); }
+
+  footer { padding: 3rem 2rem; border-top: 1px solid var(--border); text-align: center; position: relative; z-index: 1; }
+  .footer-logo { font-family: var(--font-display); font-size: 1.5rem; font-weight: 900; color: var(--accent); margin-bottom: 1rem; letter-spacing: 0.1em; }
+  .footer-links { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+  .footer-links a { font-size: 0.8rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--accent); }
+  footer p { font-size: 0.78rem; color: var(--muted); }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)} }
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    .workflow-steps::before { display: none; }
+    .playlist-card { flex-direction: column; gap: 1rem; }
+    .lang-switcher { top: 0.75rem; right: 0.75rem; padding: 5px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<!-- LANG SWITCHER -->
+<div class="lang-switcher">
+  <button class="lang-btn active" onclick="switchSiteLang('fr')" title="Français">🇫🇷</button>
+  <button class="lang-btn" onclick="switchSiteLang('en')" title="English">🇺🇸</button>
+  <button class="lang-btn" onclick="switchSiteLang('es')" title="Español">🇪🇸</button>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge" data-i18n="hero.badge">IA · Futurisme · Prédictions</div>
+  <h1><span data-i18n="hero.title">Chroniques du Futur</span></h1>
+  <p class="hero-sub" data-i18n="hero.sub">Prédictions futuristes générées par IA, mises en forme de podcasts trilingues. Data + visuels Manga pour explorer ce qui vient.</p>
+  <div class="hero-cta">
+    <a href="https://www.youtube.com/@Borgfost" target="_blank" class="btn-primary" data-i18n="hero.cta1">▶ Voir la chaîne</a>
+  </div>
+  <div class="scroll-indicator">
+    <span data-i18n="hero.scroll">Découvrir</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- CONCEPT -->
+<section class="concept" id="concept">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag" data-i18n="concept.tag">// Le concept</span>
+      <h2 data-i18n="concept.title">Une chaîne à contre-courant</h2>
+      <p data-i18n="concept.sub">Dans un monde qui va vite, des contenus posés, construits par IA, qui imaginent sérieusement notre futur.</p>
+    </div>
+    <div class="concept-grid">
+      <div class="concept-card reveal"><span class="card-icon">🔮</span><div class="card-title" data-i18n="concept.c1.title">Prédictions IA</div><p class="card-text" data-i18n="concept.c1.text">Des analyses futuristes construites avec Gemini, basées sur des données réelles pour imaginer les grandes tendances à venir.</p></div>
+      <div class="concept-card reveal"><span class="card-icon">🎙️</span><div class="card-title" data-i18n="concept.c2.title">Format podcast</div><p class="card-text" data-i18n="concept.c2.text">NotebookLM transforme chaque prédiction en conversation naturelle et engageante. Un format audio-first, image fixe, sans fioriture.</p></div>
+      <div class="concept-card reveal"><span class="card-icon">🌐</span><div class="card-title" data-i18n="concept.c3.title">3 langues</div><p class="card-text" data-i18n="concept.c3.text">Chaque vidéo existe en Français, Anglais et Espagnol. Même contenu, même qualité, trois audiences mondiales.</p></div>
+      <div class="concept-card reveal"><span class="card-icon">🎌</span><div class="card-title" data-i18n="concept.c4.title">Esthétique Manga</div><p class="card-text" data-i18n="concept.c4.text">Des visuels inspirés de l'univers manga pour ancrer le futurisme dans une identité visuelle forte et reconnaissable.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW -->
+<section class="workflow" id="workflow">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag" data-i18n="workflow.tag">// Comment c'est fait</span>
+      <h2 data-i18n="workflow.title">Workflow 100% IA</h2>
+      <p data-i18n="workflow.sub">Transparence totale sur le processus de création. Aucune partie n'est cachée.</p>
+    </div>
+    <div class="workflow-steps">
+      <div class="step reveal"><div class="step-num">01</div><span class="step-tool">Gemini</span><h3 data-i18n="workflow.s1.title">Recherche & texte</h3><p data-i18n="workflow.s1.text">Gemini analyse les données et rédige les prédictions futuristes structurées.</p></div>
+      <div class="step reveal"><div class="step-num">02</div><span class="step-tool">NotebookLM</span><h3 data-i18n="workflow.s2.title">Conversion podcast</h3><p data-i18n="workflow.s2.text">NotebookLM transforme le texte en dialogue podcast naturel, dans les 3 langues.</p></div>
+      <div class="step reveal"><div class="step-num">03</div><span class="step-tool">IA Visuel</span><h3 data-i18n="workflow.s3.title">Image Manga</h3><p data-i18n="workflow.s3.text">Une image fixe style manga générée par IA, cohérente avec le thème de la vidéo.</p></div>
+      <div class="step reveal"><div class="step-num">04</div><span class="step-tool">YouTube</span><h3 data-i18n="workflow.s4.title">Publication</h3><p data-i18n="workflow.s4.text">Mise en ligne simultanée sur 3 playlists dédiées, une par langue.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PLAYLISTS -->
+<section class="playlists" id="playlists">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag" data-i18n="pl.tag">// Contenu</span>
+      <h2 data-i18n="pl.title">Les playlists</h2>
+      <p data-i18n="pl.sub">Le même contenu, la même qualité, trois langues. Choisissez la vôtre.</p>
+    </div>
+    <div class="lang-tabs reveal">
+      <button class="lang-tab active" onclick="showPlaylist('fr')">🇫🇷 Français</button>
+      <button class="lang-tab" onclick="showPlaylist('en')">🇬🇧 English</button>
+      <button class="lang-tab" onclick="showPlaylist('es')">🇪🇸 Español</button>
+    </div>
+    <div id="pl-fr" class="playlist-content active reveal">
+      <div class="playlist-card"><div class="playlist-flag">🇫🇷</div><div class="playlist-info"><h3>Prédictions Futuristes — Version Française</h3><p>Des prédictions sur la tech, la société, l'environnement et l'humanité. En français, pour une audience francophone mondiale.</p><div class="playlist-meta"><div class="meta-item"><strong>40+</strong><br><span data-i18n="pl.videos">vidéos programmées</span></div><div class="meta-item"><strong>2026</strong><br><span data-i18n="pl.until">jusqu'à fin octobre</span></div><div class="meta-item"><strong>IA</strong><br><span data-i18n="pl.transp">100% transparent</span></div></div><a href="https://www.youtube.com/watch?v=pa-lCsaRuyc&list=PLFofULuYzW6trEOoKX0pV6BrQOvuvySFI&pp=sAgC" target="_blank" class="btn-primary">Voir la playlist →</a></div></div>
+    </div>
+    <div id="pl-en" class="playlist-content reveal">
+      <div class="playlist-card"><div class="playlist-flag">🇬🇧</div><div class="playlist-info"><h3>Futuristic Predictions — English Version</h3><p>AI-generated futuristic predictions about tech, society, environment and humanity. In English, for a global audience.</p><div class="playlist-meta"><div class="meta-item"><strong>40+</strong><br>scheduled videos</div><div class="meta-item"><strong>2026</strong><br>through end of October</div><div class="meta-item"><strong>AI</strong><br>100% transparent</div></div><a href="https://www.youtube.com/watch?v=QkIXXMmNfxk&list=PLFofULuYzW6tYXN4sTdcKAPOBmmzqySeg&pp=sAgC" target="_blank" class="btn-primary">Watch the playlist →</a></div></div>
+    </div>
+    <div id="pl-es" class="playlist-content reveal">
+      <div class="playlist-card"><div class="playlist-flag">🇪🇸</div><div class="playlist-info"><h3>Predicciones Futuristas — Versión Española</h3><p>Predicciones futuristas generadas por IA sobre tecnología, sociedad, medio ambiente y humanidad. En español, para una audiencia global.</p><div class="playlist-meta"><div class="meta-item"><strong>40+</strong><br>vídeos programados</div><div class="meta-item"><strong>2026</strong><br>hasta finales de octubre</div><div class="meta-item"><strong>IA</strong><br>100% transparente</div></div><a href="https://www.youtube.com/watch?v=GTREd3cBsXA&list=PLFofULuYzW6uKo84FBaTy9s7vi16v4YQ1&pp=sAgC" target="_blank" class="btn-primary">Ver la playlist →</a></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSPARENCE -->
+<section class="transparency" id="transparence">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag" data-i18n="tr.tag">// Transparence</span>
+      <h2 data-i18n="tr.title">Créé par IA, assumé</h2>
+      <p data-i18n="tr.sub">Aucun secret sur le process. Voici exactement ce qui est fait par IA et pourquoi.</p>
+    </div>
+    <div class="transp-grid">
+      <div class="transp-item reveal"><div class="transp-icon">✍️</div><div><h4 data-i18n="tr.t1.title">Texte & recherche</h4><p data-i18n="tr.t1.text">Rédigé par Gemini à partir de données publiques et de tendances analysées.</p></div></div>
+      <div class="transp-item reveal"><div class="transp-icon">🎙️</div><div><h4 data-i18n="tr.t2.title">Voix & dialogue</h4><p data-i18n="tr.t2.text">Générés par NotebookLM. Les voix sont synthétiques, pas humaines.</p></div></div>
+      <div class="transp-item reveal"><div class="transp-icon">🖼️</div><div><h4 data-i18n="tr.t3.title">Visuels</h4><p data-i18n="tr.t3.text">Images créées par IA avec un style manga. Aucune photo réelle utilisée.</p></div></div>
+      <div class="transp-item reveal"><div class="transp-icon">🌐</div><div><h4 data-i18n="tr.t4.title">Traductions</h4><p data-i18n="tr.t4.text">Les versions EN et ES sont adaptées automatiquement par NotebookLM.</p></div></div>
+      <div class="transp-item reveal"><div class="transp-icon">🔮</div><div><h4 data-i18n="tr.t5.title">Ce sont des prédictions</h4><p data-i18n="tr.t5.text">Pas des faits. Des scénarios plausibles basés sur des tendances actuelles.</p></div></div>
+      <div class="transp-item reveal"><div class="transp-icon">👤</div><div><h4 data-i18n="tr.t6.title">Un humain derrière</h4><p data-i18n="tr.t6.text">Jean Fost conçoit, oriente et publie. L'IA exécute, l'humain décide.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ALSO ON -->
+<section style="padding: 6rem 0; position: relative; z-index: 1;">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag" data-i18n="also.tag">// Retrouvez-moi aussi sur</span>
+      <h2 data-i18n="also.title">Au-delà de YouTube</h2>
+      <p data-i18n="also.sub">Le contenu disponible sur d'autres plateformes — en français.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+      <div class="concept-card reveal" style="display:flex;flex-direction:column;gap:1.25rem;">
+        <div style="display:flex;align-items:center;gap:1rem;">
+          <div style="width:52px;height:52px;border-radius:12px;background:rgba(30,215,96,0.1);border:1px solid rgba(30,215,96,0.3);display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;">🎧</div>
+          <div><div class="card-title" style="margin-bottom:2px;">Spotify Podcast</div><div style="font-size:0.78rem;color:var(--muted);" data-i18n="also.spotify.sub">Version audio — FR uniquement</div></div>
+        </div>
+        <p class="card-text" data-i18n="also.spotify.text">Les prédictions futuristes disponibles en podcast sur Spotify. Écoutez en mobilité, sans vidéo.</p>
+        <a href="https://open.spotify.com/show/77Gcd7tGst9yoxqScvhIo2?si=t1Jbs4TLTtK79Tdgq1Y8qA" target="_blank" class="btn-primary" style="align-self:flex-start;background:#1ed760;border-color:#1ed760;" data-i18n="also.spotify.btn">▶ Écouter sur Spotify</a>
+      </div>
+      <div class="concept-card reveal" style="display:flex;flex-direction:column;gap:1.25rem;">
+        <div style="display:flex;align-items:center;gap:1rem;">
+          <div style="width:52px;height:52px;border-radius:12px;background:rgba(255,153,0,0.1);border:1px solid rgba(255,153,0,0.3);display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;">📖</div>
+          <div><div class="card-title" style="margin-bottom:2px;color:#ff9900;" data-i18n="also.book.title">Livre / Ebook</div><div style="font-size:0.78rem;color:var(--muted);" data-i18n="also.book.sub">Volume 1 — FR uniquement</div></div>
+        </div>
+        <p class="card-text" data-i18n="also.book.text">Le premier volume des prédictions futuristes IA disponible en ebook sur Amazon KDP. Les meilleures analyses réunies.</p>
+        <a href="https://www.amazon.fr/dp/B0GWS7P8ZG" target="_blank" class="btn-primary" style="align-self:flex-start;background:#ff9900;border-color:#ff9900;" data-i18n="also.book.btn">📖 Voir sur Amazon</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">JEAN FOST</div>
+  <div class="footer-links">
+    <a href="https://www.youtube.com/@Borgfost" target="_blank">YouTube</a>
+    <a href="https://open.spotify.com/show/77Gcd7tGst9yoxqScvhIo2?si=t1Jbs4TLTtK79Tdgq1Y8qA" target="_blank">Spotify</a>
+    <a href="https://www.amazon.fr/dp/B0GWS7P8ZG" target="_blank">Amazon</a>
+  </div>
+  <p data-i18n="footer.copy">© 2026 Jean Fost · Contenu généré par IA · Fait avec Gemini, NotebookLM & Claude</p>
+</footer>
+
+<script>
+const i18n = {
+  fr: {
+    "hero.badge":"IA · Futurisme · Prédictions","hero.title":"Chroniques du Futur","hero.sub":"Prédictions futuristes générées par IA, mises en forme de podcasts trilingues. Data + visuels Manga pour explorer ce qui vient.","hero.cta1":"▶ Voir la chaîne","hero.scroll":"Découvrir",
+    "concept.tag":"// Le concept","concept.title":"Une chaîne à contre-courant","concept.sub":"Dans un monde qui va vite, des contenus posés, construits par IA, qui imaginent sérieusement notre futur.","concept.c1.title":"Prédictions IA","concept.c1.text":"Des analyses futuristes construites avec Gemini, basées sur des données réelles pour imaginer les grandes tendances à venir.","concept.c2.title":"Format podcast","concept.c2.text":"NotebookLM transforme chaque prédiction en conversation naturelle et engageante. Un format audio-first, image fixe, sans fioriture.","concept.c3.title":"3 langues","concept.c3.text":"Chaque vidéo existe en Français, Anglais et Espagnol. Même contenu, même qualité, trois audiences mondiales.","concept.c4.title":"Esthétique Manga","concept.c4.text":"Des visuels inspirés de l'univers manga pour ancrer le futurisme dans une identité visuelle forte et reconnaissable.",
+    "workflow.tag":"// Comment c'est fait","workflow.title":"Workflow 100% IA","workflow.sub":"Transparence totale sur le processus de création. Aucune partie n'est cachée.","workflow.s1.title":"Recherche & texte","workflow.s1.text":"Gemini analyse les données et rédige les prédictions futuristes structurées.","workflow.s2.title":"Conversion podcast","workflow.s2.text":"NotebookLM transforme le texte en dialogue podcast naturel, dans les 3 langues.","workflow.s3.title":"Image Manga","workflow.s3.text":"Une image fixe style manga générée par IA, cohérente avec le thème de la vidéo.","workflow.s4.title":"Publication","workflow.s4.text":"Mise en ligne simultanée sur 3 playlists dédiées, une par langue.",
+    "pl.tag":"// Contenu","pl.title":"Les playlists","pl.sub":"Le même contenu, la même qualité, trois langues. Choisissez la vôtre.","pl.videos":"vidéos programmées","pl.until":"jusqu'à fin octobre","pl.transp":"100% transparent",
+    "tr.tag":"// Transparence","tr.title":"Créé par IA, assumé","tr.sub":"Aucun secret sur le process. Voici exactement ce qui est fait par IA et pourquoi.","tr.t1.title":"Texte & recherche","tr.t1.text":"Rédigé par Gemini à partir de données publiques et de tendances analysées.","tr.t2.title":"Voix & dialogue","tr.t2.text":"Générés par NotebookLM. Les voix sont synthétiques, pas humaines.","tr.t3.title":"Visuels","tr.t3.text":"Images créées par IA avec un style manga. Aucune photo réelle utilisée.","tr.t4.title":"Traductions","tr.t4.text":"Les versions EN et ES sont adaptées automatiquement par NotebookLM.","tr.t5.title":"Ce sont des prédictions","tr.t5.text":"Pas des faits. Des scénarios plausibles basés sur des tendances actuelles.","tr.t6.title":"Un humain derrière","tr.t6.text":"Jean Fost conçoit, oriente et publie. L'IA exécute, l'humain décide.",
+    "also.tag":"// Retrouvez-moi aussi sur","also.title":"Au-delà de YouTube","also.sub":"Le contenu disponible sur d'autres plateformes — en français.","also.spotify.sub":"Version audio — FR uniquement","also.spotify.text":"Les prédictions futuristes disponibles en podcast sur Spotify. Écoutez en mobilité, sans vidéo.","also.spotify.btn":"▶ Écouter sur Spotify","also.book.title":"Livre / Ebook","also.book.sub":"Volume 1 — FR uniquement","also.book.text":"Le premier volume des prédictions futuristes IA disponible en ebook sur Amazon KDP. Les meilleures analyses réunies.","also.book.btn":"📖 Voir sur Amazon",
+    "footer.copy":"© 2026 Jean Fost · Contenu généré par IA · Fait avec Gemini, NotebookLM & Claude"
+  },
+  en: {
+    "hero.badge":"AI · Futurism · Predictions","hero.title":"Chronicles of the Future","hero.sub":"AI-generated futuristic predictions, shaped into trilingual podcasts. Data + Manga visuals to explore what's coming.","hero.cta1":"▶ Watch the channel","hero.scroll":"Discover",
+    "concept.tag":"// The concept","concept.title":"A channel going against the grain","concept.sub":"In a world moving fast, calm AI-built content that seriously imagines our future.","concept.c1.title":"AI Predictions","concept.c1.text":"Futuristic analyses built with Gemini, based on real data to imagine the major trends ahead.","concept.c2.title":"Podcast format","concept.c2.text":"NotebookLM turns each prediction into a natural, engaging conversation. Audio-first, static image, no frills.","concept.c3.title":"3 languages","concept.c3.text":"Every video exists in French, English and Spanish. Same content, same quality, three global audiences.","concept.c4.title":"Manga aesthetic","concept.c4.text":"Visuals inspired by the manga universe to ground futurism in a strong, recognizable visual identity.",
+    "workflow.tag":"// How it's made","workflow.title":"100% AI Workflow","workflow.sub":"Full transparency on the creation process. Nothing is hidden.","workflow.s1.title":"Research & text","workflow.s1.text":"Gemini analyses data and writes structured futuristic predictions.","workflow.s2.title":"Podcast conversion","workflow.s2.text":"NotebookLM turns the text into natural podcast dialogue, in all 3 languages.","workflow.s3.title":"Manga image","workflow.s3.text":"A static manga-style image generated by AI, consistent with the video's theme.","workflow.s4.title":"Publishing","workflow.s4.text":"Simultaneous release on 3 dedicated playlists, one per language.",
+    "pl.tag":"// Content","pl.title":"The playlists","pl.sub":"Same content, same quality, three languages. Choose yours.","pl.videos":"scheduled videos","pl.until":"through end of October","pl.transp":"100% transparent",
+    "tr.tag":"// Transparency","tr.title":"Made by AI, owned","tr.sub":"No secrets about the process. Here's exactly what AI does and why.","tr.t1.title":"Text & research","tr.t1.text":"Written by Gemini from public data and analysed trends.","tr.t2.title":"Voice & dialogue","tr.t2.text":"Generated by NotebookLM. The voices are synthetic, not human.","tr.t3.title":"Visuals","tr.t3.text":"Images created by AI in manga style. No real photos used.","tr.t4.title":"Translations","tr.t4.text":"EN and ES versions are automatically adapted by NotebookLM.","tr.t5.title":"These are predictions","tr.t5.text":"Not facts. Plausible scenarios based on current trends.","tr.t6.title":"A human behind it","tr.t6.text":"Jean Fost designs, directs and publishes. AI executes, the human decides.",
+    "also.tag":"// Also find me on","also.title":"Beyond YouTube","also.sub":"Content available on other platforms — in French.","also.spotify.sub":"Audio version — FR only","also.spotify.text":"Futuristic predictions available as a podcast on Spotify. Listen on the go, no video needed.","also.spotify.btn":"▶ Listen on Spotify","also.book.title":"Book / Ebook","also.book.sub":"Volume 1 — FR only","also.book.text":"The first volume of AI futuristic predictions available as an ebook on Amazon KDP. The best analyses gathered together.","also.book.btn":"📖 View on Amazon",
+    "footer.copy":"© 2026 Jean Fost · AI-generated content · Made with Gemini, NotebookLM & Claude"
+  },
+  es: {
+    "hero.badge":"IA · Futurismo · Predicciones","hero.title":"Crónicas del Futuro","hero.sub":"Predicciones futuristas generadas por IA, en formato de podcast trilingüe. Datos + visuales Manga para explorar lo que viene.","hero.cta1":"▶ Ver el canal","hero.scroll":"Descubrir",
+    "concept.tag":"// El concepto","concept.title":"Un canal a contracorriente","concept.sub":"En un mundo que va rápido, contenido pausado, construido por IA, que imagina seriamente nuestro futuro.","concept.c1.title":"Predicciones IA","concept.c1.text":"Análisis futuristas construidos con Gemini, basados en datos reales para imaginar las grandes tendencias del mañana.","concept.c2.title":"Formato podcast","concept.c2.text":"NotebookLM convierte cada predicción en una conversación natural y atractiva. Audio-first, imagen fija, sin adornos.","concept.c3.title":"3 idiomas","concept.c3.text":"Cada vídeo existe en Francés, Inglés y Español. Mismo contenido, misma calidad, tres audiencias globales.","concept.c4.title":"Estética Manga","concept.c4.text":"Visuales inspirados en el universo manga para anclar el futurismo en una identidad visual fuerte y reconocible.",
+    "workflow.tag":"// Cómo se hace","workflow.title":"Workflow 100% IA","workflow.sub":"Transparencia total sobre el proceso de creación. Nada está oculto.","workflow.s1.title":"Investigación & texto","workflow.s1.text":"Gemini analiza los datos y redacta las predicciones futuristas estructuradas.","workflow.s2.title":"Conversión podcast","workflow.s2.text":"NotebookLM convierte el texto en diálogo natural de podcast, en los 3 idiomas.","workflow.s3.title":"Imagen Manga","workflow.s3.text":"Una imagen fija estilo manga generada por IA, coherente con el tema del vídeo.","workflow.s4.title":"Publicación","workflow.s4.text":"Publicación simultánea en 3 playlists dedicadas, una por idioma.",
+    "pl.tag":"// Contenido","pl.title":"Las playlists","pl.sub":"Mismo contenido, misma calidad, tres idiomas. Elige el tuyo.","pl.videos":"vídeos programados","pl.until":"hasta finales de octubre","pl.transp":"100% transparente",
+    "tr.tag":"// Transparencia","tr.title":"Creado por IA, sin esconderlo","tr.sub":"Sin secretos sobre el proceso. Aquí está exactamente lo que hace la IA y por qué.","tr.t1.title":"Texto e investigación","tr.t1.text":"Redactado por Gemini a partir de datos públicos y tendencias analizadas.","tr.t2.title":"Voz y diálogo","tr.t2.text":"Generados por NotebookLM. Las voces son sintéticas, no humanas.","tr.t3.title":"Visuales","tr.t3.text":"Imágenes creadas por IA con estilo manga. No se usa ninguna foto real.","tr.t4.title":"Traducciones","tr.t4.text":"Las versiones EN y ES son adaptadas automáticamente por NotebookLM.","tr.t5.title":"Son predicciones","tr.t5.text":"No son hechos. Escenarios plausibles basados en tendencias actuales.","tr.t6.title":"Un humano detrás","tr.t6.text":"Jean Fost diseña, orienta y publica. La IA ejecuta, el humano decide.",
+    "also.tag":"// Encuéntrame también en","also.title":"Más allá de YouTube","also.sub":"Contenido disponible en otras plataformas — en francés.","also.spotify.sub":"Versión audio — solo FR","also.spotify.text":"Las predicciones futuristas disponibles como podcast en Spotify. Escucha en cualquier lugar, sin vídeo.","also.spotify.btn":"▶ Escuchar en Spotify","also.book.title":"Libro / Ebook","also.book.sub":"Volumen 1 — solo FR","also.book.text":"El primer volumen de predicciones futuristas IA disponible como ebook en Amazon KDP. Los mejores análisis reunidos.","also.book.btn":"📖 Ver en Amazon",
+    "footer.copy":"© 2026 Jean Fost · Contenido generado por IA · Hecho con Gemini, NotebookLM & Claude"
+  }
+};
+
+function switchSiteLang(lang) {
+  document.documentElement.lang = lang;
+  document.querySelectorAll('.lang-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', ['fr','en','es'][i] === lang);
+  });
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (i18n[lang] && i18n[lang][key]) el.innerHTML = i18n[lang][key];
+  });
+}
+
+function showPlaylist(lang) {
+  ['fr','en','es'].forEach(l => {
+    document.getElementById('pl-'+l).classList.toggle('active', l === lang);
+  });
+  document.querySelectorAll('.lang-tab').forEach((btn, i) => {
+    btn.classList.toggle('active', ['fr','en','es'][i] === lang);
+  });
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  el.style.transitionDelay = (i % 4) * 0.08 + 's';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
